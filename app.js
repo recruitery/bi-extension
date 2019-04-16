@@ -11,7 +11,7 @@
  * ADD GOOGLE CALENDAR BUTTON *
  ******************************/
 
-console.warn('====== START APP =====');
+console.log('====== START APP =====');
 
 const queryResultArrived = '.CardVisualization table > thead > tr > th';
 const queryRecord = '.CardVisualization table tbody tr';
@@ -21,6 +21,10 @@ const date = new Date();
 const dd = ("0" + date.getDate()).slice(-2);
 const mm = ("0" + (date.getMonth() + 1)).slice(-2);
 const gaTracking = '?utm_source=newsletter&utm_medium=email&utm_campaign=2019_' + mm + '_' + dd;
+const iframeHeight = 1000;
+const iframeWidth = 375;
+const jobCodes = [];
+const logos = [];
 
 const isMatchPattern = function (jelement, pattern) {
   return jelement.text() === pattern;
@@ -67,21 +71,19 @@ const generateLeaderBoard = function () {
 
 $(document).ready(function () {
   const generateNewsletter = function () {
-    const jobCodes = [];
-    const logos = [];
     let iframe = $('#iframe');
     if (!iframe || !iframe.length) {
-      iframe = $('<iframe id="iframe"/>');
-      iframe.height(500);
-      iframe.width(375);
-      iframe.appendTo('.DashboardGrid .CardVisualization');
+      iframe = $('<iframe id="iframe" class="flex layout-centered" style="width:50%;float:left;margin-top:20px;padding:5px;"/>');
+      iframe.height(iframeHeight);
+      iframe.width(iframeWidth);
+      iframe.insertBefore('.wrapper .flex.layout-centered');
     }
     let newsletter = $(`<div style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#333;line-height: 1.5;font-size:14px;"></div>`);
     let jobContainter = $(`<ol style="padding-inline-start: 30px;"></ol>`);
     let greeting = $(
       `<div style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;">` +
 
-      `<p style="text-align:center;">Chào bạn Toản, <br><br> Chúc ta hãy cùng chúc mừng bạn <strong>Phương</strong> đã giới thiệu thành công cho vị trí iOS Developer tại AIQ Tech với mức thưởng <span style="color: rgb(255,255,255);background-color: rgb(253,111,44);font-weight: 700;padding: 0.05em 0.5em 0.1em;white-space: nowrap;border-radius: 15px;">30,000,000 VND</span> (Vị trí này đã đóng)</p>` +
+      `<p style="text-align:center;">Chào bạn &lt;&lt;First Name&gt;&gt;, <br><br> Chúc ta hãy cùng chúc mừng bạn <strong>Phương</strong> đã giới thiệu thành công cho vị trí iOS Developer tại AIQ Tech với mức thưởng <span style="color: rgb(255,255,255);background-color: rgb(253,111,44);font-weight: 700;padding: 0.05em 0.5em 0.1em;white-space: nowrap;border-radius: 15px;">30,000,000 VND</span> (Vị trí này đã đóng)</p>` +
 
       `<p style="text-align:center;">Dưới đây là Bảng Xếp Hạng 30 Ngày gần nhất:</p>` +
 
@@ -90,13 +92,13 @@ $(document).ready(function () {
     const leaderBoard = generateLeaderBoard();
     let logoContainer = $(`<div style="text-align:center;"></div>`);
     let footerHTML =
-      `<br><strong>Có một số lưu ý sau để bạn giới thiệu hiệu quả hơn:</strong>` +
+      `<br><strong>Có một số lưu ý sau để &lt;&lt;First Name&gt;&gt; giới thiệu hiệu quả hơn:</strong>` +
       `<ul>` +
       `<li style="margin-bottom:5px;">Nhằm rút gọn thời gian xử lý, Recruitery sẽ hỗ trợ bạn sắp xếp lịch phỏng vấn bằng cách liên hệ trực tiếp với ứng viên. Nếu bạn không đồng ý thì reply mail này để Kim biết nhé.</li>` +
       `<li style="margin-bottom:5px;">Nếu ứng viên không xác nhận giới thiệu quá 1 tuần thì hệ thống sẽ tự động reject và đóng lại case giới thiệu.</li>` +
       `<li style="margin-bottom:5px;">Nếu bạn không xóa contact ứng viên ở file CV thì Recruitery sẽ không chịu bất cứ trách nhiệm nào khi có tranh chấp.</li>` +
       `</ul>` +
-      `<p>Nếu bạn có bất kì thắc mắc gì liên quan tới job hoặc process giới thiệu, bạn cứ liên hệ 0776756799 (Kim).</p>` +
+      `<p>Nếu bạn có bất kì thắc mắc gì liên quan tới job hoặc process giới thiệu, bạn cứ liên hệ qua số +84-886-006-304.</p>` +
       `<p style="font-size:0.85em;color:#999;">Nếu bạn không muốn tiếp tục nhận mail này? <a style="color:#999;" href="https://yet-another-mail-merge.com/unsubscribe">Hủy theo dõi</a></p>`;
 
     const rows = $(queryRecord);
@@ -137,12 +139,12 @@ $(document).ready(function () {
   };
 
   document.arrive(queryResultArrived, function () {
-    console.warn('====== TRIGGER MANIPULATE =====');
+    console.log('====== TRIGGER MANIPULATE =====');
     let pattern = $(queryResultArrived).first();
     let rows = $(queryRecord);
     // if create calendar
     if (isMatchPattern(pattern, patternCalendar)) {
-      console.warn('====== ', patternCalendar, ' =====');
+      console.log('====== ', patternCalendar, ' =====');
       rows.each(function (i) {
         const cols = rows[i].querySelectorAll('td');
         const firstTd = $(cols[0]);
@@ -187,4 +189,4 @@ $(document).ready(function () {
   });
 });
 
-console.warn('====== END APP =====');
+console.log('====== END APP =====');
