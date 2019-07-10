@@ -6,7 +6,6 @@
   "description": "Recruitery BI",
   "permissions": [
     "http://bi.recruitery.co*",
-    "http://bi.recruitery.co:3000*",
     "activeTab",
     "declarativeContent",
     "storage"
@@ -26,7 +25,9 @@
     }
   },
   "content_scripts": [{
-    "matches": ["http://bi.recruitery.co/*", "http://bi.recruitery.co:3000/*"],
+    "matches": [
+      "http://bi.recruitery.co/*"
+    ],
     "css": ["app.css"],
     "js": ["jquery.min.js", "arrive.min.js", "app.js"],
     "run_at": "document_end",
