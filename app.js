@@ -112,7 +112,7 @@ $(document).ready(function () {
       const city_Name = cols[5].innerText;
       const company_Logo = cols[6].innerText;
       const jobItem = '<li style="margin-bottom:5px;"><span style="color: rgb(255,255,255);background-color: rgb(253,111,44);font-weight: 700;padding: 0.05em 0.5em 0.1em;white-space: nowrap;border-radius: 15px;">' + job_BonusAmout +
-        ' VND</span>&nbsp;<a href="https://recruitery.co/job/' + job_Code +
+        ' VND</span>&nbsp;<a href="https://recruitery.co/job-view/' + job_Code +
         '.html' + gaTracking + '">' + job_Name +
         '</a> <span style="margin-left:3px;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;color: #777!important;font-size: 11px;background: #eee;border-radius: 2px;">' + city_Name +
         '</span> </li>';
@@ -166,7 +166,7 @@ $(document).ready(function () {
         const eventContent = "Dear " + candidate_Name + "," +
           "\n\nWe are pleased to invite you to join interview with details as below:\nVenue: " + company_Address +
           "\n\nIf there is any urgency, feel free to contact Interviewer via cellphone  " + company_Phone + " and email " + company_Email + "." +
-          "\n\nPlease make sure you understand the job https://recruitery.co/job/job-" + job_Id + ".html prior to the interview." +
+          "\n\nPlease make sure you understand the job https://recruitery.co/job-view/job-" + job_Id + ".html prior to the interview." +
           "\nIt is highly appreciated if we could receive your confirmation of attendance by replying to this meeting schedule within 12 hours." +
           "\n" +
           "\nDear employer, here is information about the candidate:" +
