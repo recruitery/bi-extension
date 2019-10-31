@@ -172,7 +172,20 @@ $(document).ready(function () {
           "\nDear employer, here is information about the candidate:" +
           "\n- Mobile: " + candidate_Phone + ".\n- Email: " + candidate_Email +
           "\n- Resume: " + candidate_CV;
-        const href = "http://www.google.com/calendar/event?action=TEMPLATE&location=" + encodeURI(company_Address) + "&details=" + encodeURI(eventContent) + "&add=" + encodeURI('toan@recruitery.co') + "," + encodeURI(candidate_Email) + "," + encodeURI(company_Email) + "," + encodeURI(company_EmailCC) + "&text=" + encodeURI(eventTitle);
+        const href = "http://www.google.com/calendar/event?action=TEMPLATE&location=" +
+          encodeURI(company_Address) +
+          "&details=" +
+          encodeURI(eventContent) +
+          "&add=" +
+          encodeURI('account@recruitery.co') +
+          "," +
+          encodeURI(candidate_Email) +
+          "," +
+          encodeURI(company_Email) +
+          "," +
+          encodeURI(company_EmailCC) +
+          "&text=" +
+          encodeURI(eventTitle);
         const button = $('<a href="' + href + '" target="_blank" class="Button Button--primary">Create calendar</a>');
         firstTd.empty();
         button.appendTo(firstTd);
