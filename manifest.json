@@ -5,8 +5,8 @@
   "manifest_version": 2,
   "description": "Recruitery BI",
   "permissions": [
-    "http://bi.recruitery.co*",
-    "http://bi2.recruitery.co*",
+    "http://bi.recruitery.co/*",
+    "http://bi2.recruitery.co/*",
     "activeTab",
     "declarativeContent",
     "storage"
@@ -27,8 +27,8 @@
   },
   "content_scripts": [{
     "matches": [
-      "http://bi.recruitery.co*",
-      "http://bi2.recruitery.co*"
+      "http://bi.recruitery.co/*",
+      "http://bi2.recruitery.co/*"
     ],
     "css": ["app.css"],
     "js": ["jquery.min.js", "arrive.min.js", "app.js"],

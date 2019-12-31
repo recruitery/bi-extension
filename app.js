@@ -27,7 +27,8 @@ const jobCodes = [];
 const logos = [];
 
 const isMatchPattern = function (jelement, pattern) {
-  return jelement.text() === pattern;
+  var eleText = jelement.text().toLowerCase();
+  return eleText === pattern.toLowerCase();
 };
 
 const generateLeaderBoard = function () {
@@ -70,80 +71,14 @@ const generateLeaderBoard = function () {
 }
 
 $(document).ready(function () {
-  const generateNewsletter = function () {
-    let iframe = $('#iframe');
-    if (!iframe || !iframe.length) {
-      iframe = $('<iframe id="iframe" class="flex layout-centered" style="width:50%;float:left;margin-top:20px;padding:5px;"/>');
-      iframe.height(iframeHeight);
-      iframe.width(iframeWidth);
-      iframe.insertBefore('.wrapper .flex.layout-centered');
-    }
-    let newsletter = $(`<div style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#333;line-height: 1.5;font-size:14px;"></div>`);
-    let jobContainter = $(`<ol style="padding-inline-start: 30px;"></ol>`);
-    let greeting = $(
-      `<div style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;">` +
-
-      `<p style="text-align:center;">Chào bạn &lt;&lt;First Name&gt;&gt;, <br><br> Chúc ta hãy cùng chúc mừng bạn <strong>Phương</strong> đã giới thiệu thành công cho vị trí iOS Developer tại AIQ Tech với mức thưởng <span style="color: rgb(255,255,255);background-color: rgb(253,111,44);font-weight: 700;padding: 0.05em 0.5em 0.1em;white-space: nowrap;border-radius: 15px;">30,000,000 VND</span> (Vị trí này đã đóng)</p>` +
-
-      `<p style="text-align:center;">Dưới đây là Bảng Xếp Hạng 30 Ngày gần nhất:</p>` +
-
-      `</div>`
-    );
-    const leaderBoard = generateLeaderBoard();
-    let logoContainer = $(`<div style="text-align:center;"></div>`);
-    let footerHTML =
-      `<br><strong>Có một số lưu ý sau để &lt;&lt;First Name&gt;&gt; giới thiệu hiệu quả hơn:</strong>` +
-      `<ul>` +
-      `<li style="margin-bottom:5px;">Nhằm rút gọn thời gian xử lý, Recruitery sẽ hỗ trợ bạn sắp xếp lịch phỏng vấn bằng cách liên hệ trực tiếp với ứng viên. Nếu bạn không đồng ý thì reply mail này để Kim biết nhé.</li>` +
-      `<li style="margin-bottom:5px;">Nếu ứng viên không xác nhận giới thiệu quá 1 tuần thì hệ thống sẽ tự động reject và đóng lại case giới thiệu.</li>` +
-      `<li style="margin-bottom:5px;">Nếu bạn không xóa contact ứng viên ở file CV thì Recruitery sẽ không chịu bất cứ trách nhiệm nào khi có tranh chấp.</li>` +
-      `</ul>` +
-      `<p>Nếu bạn có bất kì thắc mắc gì liên quan tới job hoặc process giới thiệu, bạn cứ liên hệ qua số +84-886-006-304.</p>` +
-      `<p style="font-size:0.85em;color:#999;">Nếu bạn không muốn tiếp tục nhận mail này? <a style="color:#999;" href="https://yet-another-mail-merge.com/unsubscribe">Hủy theo dõi</a></p>`;
-
-    const rows = $(queryRecord);
-    rows.each(function (i) {
-      const cols = rows[i].querySelectorAll('td');
-      const job_Code = cols[0].innerText;
-      const job_Name = cols[1].innerText;
-      const job_BonusAmout = cols[2].innerText;
-      const job_IsHot = cols[3].innerText === 'true';
-      const job_IsNew = cols[4].innerText === 'true';
-      const city_Name = cols[5].innerText;
-      const company_Logo = cols[6].innerText;
-      const jobItem = '<li style="margin-bottom:5px;"><span style="color: rgb(255,255,255);background-color: rgb(253,111,44);font-weight: 700;padding: 0.05em 0.5em 0.1em;white-space: nowrap;border-radius: 15px;">' + job_BonusAmout +
-        ' VND</span>&nbsp;<a href="https://recruitery.co/job-view/' + job_Code +
-        '.html' + gaTracking + '">' + job_Name +
-        '</a> <span style="margin-left:3px;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;color: #777!important;font-size: 11px;background: #eee;border-radius: 2px;">' + city_Name +
-        '</span> </li>';
-      $(jobItem).appendTo(jobContainter);
-      if (!jobCodes.includes(job_Code)) {
-        jobCodes.push(job_Code);
-      }
-      if (!logos.includes(company_Logo)) {
-        logos.push(company_Logo);
-        $('<img alt="logo" src="https://static.recruitery.co' + company_Logo + '" height="50px;" style="margin-right:4px;">').appendTo(logoContainer);
-      }
-    });
-    $('<a href="https://app.recruitery.co/recruiter/jobs' + gaTracking + '">XEM TOÀN BỘ DANH SÁCH →</a>').appendTo(jobContainter);
-
-    newsletter.append(greeting);
-    newsletter.append('<hr>');
-    newsletter.append(leaderBoard);
-    newsletter.append('<hr>');
-    newsletter.append(logoContainer);
-    newsletter.append('<hr>');
-    newsletter.append(jobContainter);
-    newsletter.append($(footerHTML));
-    $('#iframe').contents().find('body').append(newsletter[0].outerHTML);
-  };
 
   document.arrive(queryResultArrived, function () {
     console.log('====== TRIGGER MANIPULATE =====');
     let pattern = $(queryResultArrived).first();
     let rows = $(queryRecord);
     // if create calendar
-    if (isMatchPattern(pattern, patternCalendar)) {
+    let isPatternCalendar = isMatchPattern(pattern, patternCalendar)
+    if (isPatternCalendar) {
       console.log('====== ', patternCalendar, ' =====');
       rows.each(function (i) {
         const cols = rows[i].querySelectorAll('td');
@@ -191,13 +126,6 @@ $(document).ready(function () {
         button.appendTo(firstTd);
 
       });
-    } else if (isMatchPattern(pattern, patternNewsletter)) {
-      // generate btn
-      const button = $('<button class="Button Button--primary">Generate</button>');
-      button.appendTo(pattern);
-      button.click(function () {
-        generateNewsletter();
-      })
     }
   });
 });
