@@ -1,11 +1,12 @@
 {
   "name": "Recruitery BI",
-  "version": "2019.04.03",
+  "version": "2019.12.31",
   "author": "Toan Nguyen",
   "manifest_version": 2,
   "description": "Recruitery BI",
   "permissions": [
     "http://bi.recruitery.co*",
+    "http://bi2.recruitery.co*",
     "activeTab",
     "declarativeContent",
     "storage"
@@ -26,7 +27,8 @@
   },
   "content_scripts": [{
     "matches": [
-      "http://bi.recruitery.co/*"
+      "http://bi.recruitery.co*",
+      "http://bi2.recruitery.co*"
     ],
     "css": ["app.css"],
     "js": ["jquery.min.js", "arrive.min.js", "app.js"],
